@@ -20,4 +20,9 @@ jobs:
       run: dotnet run &
       working-directory: Test
     - name: Wait for the application to start
-      run: wait-on http://localhost:5093
+      uses: ./
+      with:
+        working-directory: Test
+        start: dotnet -v
+        run: dotnet -v
+        wait-on: 'http://localhost:5093'
