@@ -26,11 +26,8 @@ jobs:
       run:  pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
       working-directory: TestProj
     - name: Wait for the application to start
-      uses: actions/checkout@v4
-      with:
-        working-directory: TestProj
-        start: dotnet test
-        wait-on: 'http:localhost:5093'
+      run : dotnet tests
+      working-directory: TestProj
 
 
         
