@@ -15,7 +15,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - run: dotnet build
-    - name: Ensure browsers are installed
-      run: pwsh TestProj/bin/Debug/net8.0/playwright.ps1 install --with-deps
-    - name: Run your tests
-      run: dotnet test
+      working-directory: Test
+    - name: Ensure is run
+      run: dotnet run
+      working-directory: Test
