@@ -26,7 +26,7 @@ jobs:
       run:  pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
       working-directory: TestProj
     - name: Wait for the application to start
-      run : dotnet test
+      run : xvfb-run --auto-servernum --server-num=1 --server-args='-screen 0, 1920x1080x24' dotnet test
       working-directory: TestProj
 
 
