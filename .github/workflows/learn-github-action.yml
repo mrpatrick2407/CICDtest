@@ -17,5 +17,7 @@ jobs:
     - run: dotnet build
       working-directory: Test
     - name: Ensure is run
-      run: dotnet run
+      run: dotnet run &
       working-directory: Test
+    - name: Wait for the application to start
+      run: wait-on http://localhost:5093
