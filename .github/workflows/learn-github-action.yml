@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  setup:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -19,10 +19,21 @@ jobs:
     - name: Ensure is run
       run: dotnet run &
       working-directory: Test
+    - name: Ensure is run
+      run: dotnet build
+      working-directory: TestProj
+    - name: Install browsers
+      run:  pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+      working-directory: TestProj
     - name: Wait for the application to start
       uses: actions/checkout@v4
       with:
-        working-directory: Test
-        start: dotnet -v
-        run: dotnet -v
-        wait-on: 'http://localhost:5093'
+        working-directory: TestProj
+        start: dotnet test
+        wait-on: 'http:localhost:5093'
+
+
+        
+        
+          
+        

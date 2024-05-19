@@ -8,7 +8,7 @@ namespace TestProj
 		[TestMethod]
 		public async Task TestMethod1()
 		{
-			await Page.GotoAsync("https://localhost:7257");
+			await Page.GotoAsync("http://localhost:5093");
 			await Page.Locator("input[name=email]").FillAsync("Theo");
 			Assert.AreEqual("Theo",await Page.Locator("input[name=email]").InputValueAsync());
 		}
