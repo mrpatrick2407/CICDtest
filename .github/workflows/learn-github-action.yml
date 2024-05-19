@@ -20,7 +20,7 @@ jobs:
     - name: Install Xvfb and VNC
       run: sudo apt-get update 
     - name: Install Xvfb and VNC
-      run: sudo apt-get install -y xvfb x11vnc fluxbox
+      run: sudo apt-get install -y xvfb x11vnc fluxbox tigervnc-standalone-server
     - name: Generate VNC password file
       env:
         VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
