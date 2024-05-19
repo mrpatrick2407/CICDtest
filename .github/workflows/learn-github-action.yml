@@ -14,8 +14,31 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
+    
     - run: dotnet build
       working-directory: Test
+    - name: Install Xvfb and VNC
+      run: sudo apt-get update sudo apt-get install -y xvfb x11vnc fluxbo
+    - name: Generate VNC password file
+      env:
+        VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
+      run: |
+        mkdir -p ~/.vnc
+        echo $VNC_PASSWORD | vncpasswd -f > ~/.vnc/passwd
+        chmod 600 ~/.vnc/passwd
+
+    # Step 7: Start Xvfb
+    - name: Start Xvfb
+      run: Xvfb :1 -screen 0 1920x1080x24 &
+
+    # Step 8: Start Fluxbox
+    - name: Start Fluxbox
+      run: DISPLAY=:1 fluxbox &
+
+    # Step 9: Start VNC Server
+    - name: Start VNC server
+      run: x11vnc -display :1 -N -forever -rfbauth ~/.vnc/passwd &
+
     - name: Ensure is run
       run: dotnet run &
       working-directory: Test
