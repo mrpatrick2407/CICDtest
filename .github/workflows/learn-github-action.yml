@@ -22,11 +22,9 @@ jobs:
     - name: Install Xvfb and VNC
       run: sudo apt-get install -y xvfb x11vnc fluxbox tigervnc-standalone-server
     - name: Generate VNC password file
-      env:
-        VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
       run: |
         mkdir -p ~/.vnc
-        echo $VNC_PASSWORD | vncpasswd -f > ~/.vnc/passwd
+        echo "test2407" | vncpasswd -f > ~/.vnc/passwd
         chmod 600 ~/.vnc/passwd
 
     # Step 7: Start Xvfb
@@ -53,7 +51,8 @@ jobs:
     - name: Wait for the application to start
       run : xvfb-run --auto-servernum --server-num=1 --server-args='-screen 0, 1920x1080x24' dotnet test
       working-directory: TestProj
-
+    - name: Get IP Address
+      run: hostname -I
 
         
         
