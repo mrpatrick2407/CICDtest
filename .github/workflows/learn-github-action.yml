@@ -26,7 +26,7 @@ jobs:
       run:  pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
       working-directory: TestProj
     - name: Wait for the application to start
-      run : dotnet tests
+      run : dotnet test
       working-directory: TestProj
 
 
